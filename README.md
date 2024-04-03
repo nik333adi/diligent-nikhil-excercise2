@@ -12,6 +12,9 @@
 
 - Optional - Online Payment Services
 
+## Architeture Diagram
+
+![SpeedyCheers Architecture](./speedycheersArch.png)
 
 
 ## SpeedyCheers Schema
