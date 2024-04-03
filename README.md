@@ -14,4 +14,49 @@
 
 
 
+## SpeedyCheers Schema
+
+| Table Name        | Attribute Name    | Data Type | Key Type | Indexes                    | Description                                                                                   |
+|-------------------|-------------------|-----------|----------|----------------------------|-----------------------------------------------------------------------------------------------|
+| User Table        | UserID            | String    | Primary  |                            | Unique identifier for the user.                                                              |
+|                   | Username          | String    |          |                            | User's chosen name.                                                                           |
+|                   | Email             | String    |          | EmailIndex                 | User's email address.                                                                         |
+|                   | PasswordHash      | String    |          |                            | Hashed password for authentication.                                                           |
+|                   | Location          | Map       |          |                            | Last known location with latitude (Number) and longitude (Number).                            |
+|                   | CreatedAt         | Number    |          |                            | Timestamp of user registration (UNIX timestamp).                                              |
+|                   |                   |           |          |                            |                                                                                               |
+| Driver Table      | DriverID          | String    | Primary  |                            | Unique identifier for the driver.                                                            |
+|                   | Name              | String    |          |                            | Driver's name.                                                                                |
+|                   | Email             | String    |          |                            | Driver's email address.                                                                       |
+|                   | PasswordHash      | String    |          |                            | Hashed password for authentication.                                                           |
+|                   | CurrentLocation   | Map       |          |                            | Driver’s current location with latitude (Number) and longitude (Number).                      |
+|                   | Status            | String    |          | StatusIndex                | Indicates if the driver is available, busy, etc.                                              |
+|                   | CreatedAt         | Number    |          |                            | Timestamp of driver registration.                                                             |
+|                   |                   |           |          |                            |                                                                                               |
+| CheerRequest Table| RequestID         | String    | Primary  |                            | Unique identifier for the cheer request.                                                      |
+|                   | UserID            | String    |          | UserIDIndex                | Identifier for the user making the request.                                                    |
+|                   | RequestLocation   | Map       |          |                            | Location of the cheer request with latitude (Number) and longitude (Number).                  |
+|                   | RequestType       | String    |          |                            | Type of cheer requested.                                                                      |
+|                   | Status            | String    |          | StatusIndex                | Current status of the request (e.g., pending, matched).                                        |
+|                   | CreatedAt         | Number    |          |                            | Timestamp when the request was made.                                                          |
+|                   | RideID            | String    |          |                            | Identifier for the ride/session once matched.                                                 |
+|                   |                   |           |          |                            |                                                                                               |
+| Ride (Session) Table | RideID          | String    | Primary  |                            | Unique identifier for the ride/session.                                                       |
+|                   | RequestID         | String    |          | RequestIDIndex             | Linked cheer request identifier.                                                              |
+|                   | DriverID          | String    |          | DriverIDIndex              | Identifier for the driver who accepted the request.                                            |
+|                   | StartLocation     | Map       |          |                            | Starting location of the session with latitude (Number) and longitude (Number).                |
+|                   | EndLocation       | Map       | Optional |                            | Ending location, if applicable.                                                               |
+|                   | StartTime         | Number    |          |                            | Timestamp when the session started.                                                           |
+|                   | EndTime           | Number    | Optional |                            | Timestamp when the session ended.                                                             |
+|                   | Status            | String    |          |                            | Status of the ride (e.g., active, completed).                                                  |
+|                   | Fare              | Number    |          |                            | Calculated fare for the session.                                                              |
+|                   |                   |           |          |                            |                                                                                               |
+| Payment Table     | PaymentID         | String    | Primary  |                            | Unique identifier for the payment transaction.                                                 |
+|                   | RideID            | String    |          | RideIDIndex                | Linked ride/session identifier.                                                               |
+|                   | UserID            | String    |          | UserIDIndex                | Identifier for the user who made the payment.                                                  |
+|                   | Amount            | Number    |          |                            | Amount charged for the session.                                                               |
+|                   | PaymentMethod     | String    |          |                            | Details of the payment method used.                                                            |
+|                   | Status            | String    |          |                            | Status of the payment (e.g., processed, failed).                                               |
+|                   | ProcessedAt       | Number    |          |                            | Timestamp when the payment was processed.                                                      |
+
 
